@@ -48,5 +48,5 @@ fetchWeatherApi()
 
 function displayWeather() {
     let displayWeatherData = document.getElementById("todaysWeather");
-    displayWeatherData.innerHTML += `<p> Todays Weather ${todaysWeather} </p>`;
+    displayWeatherData.innerHTML += `<h1> Todays Weather ${todaysWeather} </h1>`;
 };

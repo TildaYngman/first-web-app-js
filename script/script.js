@@ -16,7 +16,6 @@ function getTodaysDate() {
     dateAndTimeToString = todaysTimeAndDate.toString();
     console.log(dateAndTimeToString);
 }
-getTodaysDate()
 
 //IF (dateAndTimeToString === KEY(validTime)) {do the checks for key and values}
 //ENDIF
@@ -44,9 +43,10 @@ async function fetchWeatherApi() {
     displayWeather();
 };
 
-fetchWeatherApi()
-
 function displayWeather() {
     let displayWeatherData = document.getElementById("todaysWeather");
     displayWeatherData.innerHTML += `${todaysWeather}`;
 };
+
+getTodaysDate();
+fetchWeatherApi();

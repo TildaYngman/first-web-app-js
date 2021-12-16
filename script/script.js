@@ -1,5 +1,6 @@
 let todaysWeather = "Weather is not available right now";
-let todaysWeatherSymbol = "No weather symbol available today";
+let todaysWeatherNumber;
+let todaysWeatherSymbol;
 let todaysDate;
 let date;
 let time;
@@ -26,37 +27,59 @@ function getTodaysDate() {
 function getWeatherData(data) {
     for (let i = 0; i < data.timeSeries.length; i++) {
         if (data.timeSeries[i].validTime.includes(dateAndTimeToString)) {
-            console.log("the valid time is", data.timeSeries[i].validTime)
+            console.log("the time is", data.timeSeries[i].validTime)
             for (let n = 0; n < data.timeSeries[i].parameters.length; n++) {
                 if (data.timeSeries[i].parameters[n].name === "t"){
                     todaysWeather = data.timeSeries[i].parameters[n].values[0];
                 } if (data.timeSeries[i].parameters[n].name === "Wsymb2"){
-                    todaysWeatherSymbol = data.timeSeries[i].parameters[n].values[0];
+                    todaysWeatherNumber = data.timeSeries[i].parameters[n].values[0];
                 }
             }
         } 
     }
 };
 
+function getWeatherIcon(iconData) {
+    for (let i = 0; i < iconData.length; i++) {
+        if (iconData[i].id === todaysWeatherNumber) {
+            todaysWeatherSymbol = iconData[i].image;
+            console.log("image ", todaysWeatherSymbol)
+        }
+    }
+}
+
+function fetchWeatherIcons() {
+    fetch("../data/icon.json")
+    .then((response) => response.json())
+    .then((iconData) => {
+        getWeatherIcon(iconData);
+        console.log("weather image", todaysWeatherSymbol )
+    });
+}
+
 async function fetchWeatherApi() {
     let response = await fetch('https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/12.2523/lat/62.5590/data.json');
     let data = await response.json();
     console.log("Getting the API", data);
+    fetchWeatherIcons();
+    getTodaysDate();
     getWeatherData(data);
+    fetchWeatherIcons();
     displayWeather();
+    console.log("picture ", todaysWeatherSymbol)
 };
 
-async function fetchWeatherIcons() {
-    let response = await fetch('../data/icon.json');
-    let data = await response.json();
-    console.log("Getting the weather icons", data);
-};
+// async function fetchWeatherIcons() {
+//     let response = await fetch('../data/icon.json');
+//     let iconData = await response.json();
+//     console.log("Getting the weather icons", iconData);
+//     getWeatherIcon(iconData);
+// };
 
 function displayWeather() {
     let displayWeatherData = document.getElementById("todaysWeather");
-    displayWeatherData.innerHTML += `<h1>${todaysWeather}<h1><h1>${todaysWeatherSymbol}<h1>`;
+    displayWeatherData.innerHTML += `<h1>${todaysWeather}<h1> <img src="${todaysWeatherSymbol}"`;
+    console.log("icon ", todaysWeatherSymbol);
 };
 
-getTodaysDate();
 fetchWeatherApi();
-fetchWeatherIcons()

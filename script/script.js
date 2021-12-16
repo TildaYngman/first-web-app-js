@@ -30,7 +30,7 @@ function getWeatherData(data) {
             for (let n = 0; n < data.timeSeries[i].parameters.length; n++) {
                 if (data.timeSeries[i].parameters[n].name === "t"){
                     todaysWeather = data.timeSeries[i].parameters[n].values[0];
-                }if (data.timeSeries[i].parameters[n].name === "Wsymb2"){
+                } if (data.timeSeries[i].parameters[n].name === "Wsymb2"){
                     todaysWeatherSymbol = data.timeSeries[i].parameters[n].values[0];
                 }
             }
@@ -46,6 +46,12 @@ async function fetchWeatherApi() {
     displayWeather();
 };
 
+async function fetchWeatherIcons() {
+    let response = await fetch('../data/icon.json');
+    let data = await response.json();
+    console.log("Getting the weather icons", data);
+};
+
 function displayWeather() {
     let displayWeatherData = document.getElementById("todaysWeather");
     displayWeatherData.innerHTML += `<h1>${todaysWeather}<h1><h1>${todaysWeatherSymbol}<h1>`;
@@ -53,3 +59,4 @@ function displayWeather() {
 
 getTodaysDate();
 fetchWeatherApi();
+fetchWeatherIcons()

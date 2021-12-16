@@ -43,42 +43,41 @@ function getWeatherIcon(iconData) {
     for (let i = 0; i < iconData.length; i++) {
         if (iconData[i].id === todaysWeatherNumber) {
             todaysWeatherSymbol = iconData[i].image;
-            console.log("image ", todaysWeatherSymbol)
+            console.log("picture ", todaysWeatherSymbol);
+            return todaysWeatherSymbol;
         }
     }
 }
 
-function fetchWeatherIcons() {
-    fetch("../data/icon.json")
-    .then((response) => response.json())
-    .then((iconData) => {
-        getWeatherIcon(iconData);
-        console.log("weather image", todaysWeatherSymbol )
-    });
-}
+// function fetchWeatherIcons() {
+//     fetch("../data/icon.json")
+//     .then((response) => response.json())
+//     .then((iconData) => {
+//         getWeatherIcon(iconData);
+//         console.log("weather image", todaysWeatherSymbol)
+//     });
+// }
+
+async function fetchWeatherIcons() {
+    let response = await fetch('../data/icon.json');
+    let iconData = await response.json();
+    console.log("Getting the weather icons", iconData);
+    getWeatherIcon(iconData);
+};
 
 async function fetchWeatherApi() {
     let response = await fetch('https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/12.2523/lat/62.5590/data.json');
     let data = await response.json();
-    console.log("Getting the API", data);
-    fetchWeatherIcons();
     getTodaysDate();
     getWeatherData(data);
-    fetchWeatherIcons();
+    await fetchWeatherIcons();
+    console.log(todaysWeatherSymbol);
     displayWeather();
-    console.log("picture ", todaysWeatherSymbol)
 };
-
-// async function fetchWeatherIcons() {
-//     let response = await fetch('../data/icon.json');
-//     let iconData = await response.json();
-//     console.log("Getting the weather icons", iconData);
-//     getWeatherIcon(iconData);
-// };
 
 function displayWeather() {
     let displayWeatherData = document.getElementById("todaysWeather");
-    displayWeatherData.innerHTML += `<h1>${todaysWeather}<h1> <img src="${todaysWeatherSymbol}"`;
+    displayWeatherData.innerHTML += `<h1>${todaysWeather}</h1> <img src="${todaysWeatherSymbol}">`;
     console.log("icon ", todaysWeatherSymbol);
 };
 

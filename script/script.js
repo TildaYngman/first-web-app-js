@@ -1,4 +1,5 @@
 let todaysWeather = "Weather is not available right now";
+let todaysWeatherSymbol = "No weather symbol available today";
 let todaysDate;
 let date;
 let time;
@@ -29,6 +30,8 @@ function getWeatherData(data) {
             for (let n = 0; n < data.timeSeries[i].parameters.length; n++) {
                 if (data.timeSeries[i].parameters[n].name === "t"){
                     todaysWeather = data.timeSeries[i].parameters[n].values[0];
+                }if (data.timeSeries[i].parameters[n].name === "Wsymb2"){
+                    todaysWeatherSymbol = data.timeSeries[i].parameters[n].values[0];
                 }
             }
         } 
@@ -45,7 +48,7 @@ async function fetchWeatherApi() {
 
 function displayWeather() {
     let displayWeatherData = document.getElementById("todaysWeather");
-    displayWeatherData.innerHTML += `${todaysWeather}`;
+    displayWeatherData.innerHTML += `<h1>${todaysWeather}<h1><h1>${todaysWeatherSymbol}<h1>`;
 };
 
 getTodaysDate();

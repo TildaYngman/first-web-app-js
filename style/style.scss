@@ -17,13 +17,27 @@ html {
 }
 
 #todaysWeather {
-    width: 20rem;
-    height: 20rem;
+    width: auto;
+    height: auto;
+    padding: 2rem;
     margin-top: 2rem;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
     border-radius: 2rem;
-    box-shadow: 0 0 0.5rem #757575;
+    box-shadow: 0 0 0.5rem rgb(48, 50, 83);
+    font-family: monospace;
+    color: rgb(48, 50, 83);
+}
+
+.todaysWeather__text {
+    font-size: 3rem;
+}
+
+.todaysWeather__img {
+    width: 17rem;
+}
+.todaysWeather__number {
+    font-size: 4rem;
 }

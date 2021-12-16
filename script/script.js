@@ -9,14 +9,22 @@ let dateAndTimeToString;
 
 //By getting todays date and the hour every time I do the check the code will be better maintainable. 
 //If the API desides to change the way they display the date and time stamp it will break and the weather will default to the error message inside let todaysWeather
+//Since hours only display single digit if < 10 i needed to append a 0 if it is a single digit to be able to compare.
 
 function getTodaysDate() {
     date = new Date();
     todaysDate = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate()+'T';
     time = date.getHours();
-    todaysTimeAndDate = todaysDate + time;
-    dateAndTimeToString = todaysTimeAndDate.toString();
-    console.log(dateAndTimeToString);
+    if (time < 10) {
+        time = "0" + date.getHours()
+        todaysTimeAndDate = todaysDate + time;
+        dateAndTimeToString = todaysTimeAndDate.toString();
+        console.log(dateAndTimeToString);
+    } else {
+        todaysTimeAndDate = todaysDate + time;
+        dateAndTimeToString = todaysTimeAndDate.toString();
+        console.log(dateAndTimeToString);
+    }
 }
 
 //IF (dateAndTimeToString === KEY(validTime)) {do the checks for key and values}
@@ -49,19 +57,9 @@ function getWeatherIcon(iconData) {
     }
 }
 
-// function fetchWeatherIcons() {
-//     fetch("../data/icon.json")
-//     .then((response) => response.json())
-//     .then((iconData) => {
-//         getWeatherIcon(iconData);
-//         console.log("weather image", todaysWeatherSymbol)
-//     });
-// }
-
 async function fetchWeatherIcons() {
     let response = await fetch('../data/icon.json');
     let iconData = await response.json();
-    console.log("Getting the weather icons", iconData);
     getWeatherIcon(iconData);
 };
 
@@ -71,14 +69,15 @@ async function fetchWeatherApi() {
     getTodaysDate();
     getWeatherData(data);
     await fetchWeatherIcons();
-    console.log(todaysWeatherSymbol);
     displayWeather();
 };
 
 function displayWeather() {
     let displayWeatherData = document.getElementById("todaysWeather");
-    displayWeatherData.innerHTML += `<h1>${todaysWeather}</h1> <img src="${todaysWeatherSymbol}">`;
-    console.log("icon ", todaysWeatherSymbol);
+    displayWeatherData.innerHTML += `
+    <h1 class="todaysWeather__text">Svansjöliftarna</h1> 
+    <img class="todaysWeather__img" src="${todaysWeatherSymbol}" alt ="symbol displaying the weather"> 
+    <h2 class="todaysWeather__number">${todaysWeather}&#8451</h2>`;
 };
 
 fetchWeatherApi();

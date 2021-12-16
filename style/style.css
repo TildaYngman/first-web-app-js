@@ -24,8 +24,9 @@ html {
 }
 
 #todaysWeather {
-  width: 20rem;
-  height: 20rem;
+  width: auto;
+  height: auto;
+  padding: 2rem;
   margin-top: 2rem;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -40,7 +41,21 @@ html {
       -ms-flex-align: center;
           align-items: center;
   border-radius: 2rem;
-  -webkit-box-shadow: 0 0 0.5rem #757575;
-          box-shadow: 0 0 0.5rem #757575;
+  -webkit-box-shadow: 0 0 0.5rem #303253;
+          box-shadow: 0 0 0.5rem #303253;
+  font-family: monospace;
+  color: #303253;
+}
+
+.todaysWeather__text {
+  font-size: 3rem;
+}
+
+.todaysWeather__img {
+  width: 17rem;
+}
+
+.todaysWeather__number {
+  font-size: 4rem;
 }
 /*# sourceMappingURL=style.css.map */

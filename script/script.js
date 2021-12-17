@@ -57,7 +57,7 @@ function getWeatherIcon(iconData) {
     }
 }
 
-async function fetchWeatherIcons() {
+async function fetchWeatherImage() {
     let response = await fetch('../data/icon.json');
     let iconData = await response.json();
     getWeatherIcon(iconData);
@@ -68,8 +68,9 @@ async function fetchWeatherApi() {
     let data = await response.json();
     getTodaysDate();
     getWeatherData(data);
-    await fetchWeatherIcons();
+    await fetchWeatherImage();
     displayWeather();
+    console.log(data)
 };
 
 function displayWeather() {

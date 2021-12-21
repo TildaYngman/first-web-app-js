@@ -33,7 +33,7 @@ function convertDateAndHourToString() {
     }
 };
 
-function CompareForResentUpdate(data) {
+function CompareTimeForResentUpdates(data) {
     for (let i = 0; i < data.timeSeries.length; i++) {
         if (data.timeSeries[i].validTime.includes(convertDateAndHourToString())) {
             return i;
@@ -41,8 +41,8 @@ function CompareForResentUpdate(data) {
     }    
 };
 
-function checkIfObjectContainKeys(data) {
-    arrayPosition = CompareForResentUpdate(data);
+function checkObjectForKeys(data) {
+    arrayPosition = CompareTimeForResentUpdates(data);
     console.log(arrayPosition);
     let currentConditions = {celcius: "Weather is not available right now", weatherNumber: "" }; 
     for (let i = 0; i < data.timeSeries[arrayPosition].parameters.length; i++) {
@@ -108,7 +108,7 @@ async function fetchApi() {
     let response = await fetch('https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/12.2523/lat/62.5590/data.json');
     let data = await response.json();
     convertDateAndHourToString();
-    checkIfObjectContainKeys(data);
+    checkObjectForKeys(data);
     await fetchLocalJson();
     displayWeather(data);
 };
@@ -118,8 +118,8 @@ function displayWeather(data) {
     displayWeatherData.innerHTML += `
     <h1 class="todaysWeather__text">Svansjöliftarna</h1>
     <h2> ${getCurrentHour()}:00</h2>
-    <img class="todaysWeather__img" src="${checkIfObjectContainKeys(data).weatherNumber}" alt ="symbol displaying the weather"> 
-    <h2 class="todaysWeather__number">${checkIfObjectContainKeys(data).celcius}&#8451</h2>`;
+    <img class="todaysWeather__img" src="${checkObjectForKeys(data).weatherNumber}" alt ="symbol displaying the weather"> 
+    <h2 class="todaysWeather__number">${checkObjectForKeys(data).celcius}&#8451</h2>`;
 };
 
 fetchApi();

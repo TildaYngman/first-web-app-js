@@ -1,8 +1,5 @@
 let todaysWeatherNumber;
 let todaysWeatherSymbol;
-//By getting todays date and the hour every time I do the check the code will be better maintainable. 
-//If the API desides to change the way they display the date and time stamp it will break and the weather will default to the error message inside let todaysWeather
-//Since hours only display single digit if < 10 i needed to append a 0 if it is a single digit to be able to compare.
 
 function todaysDate() {
     let date = new Date();
@@ -15,6 +12,8 @@ function getCurrentHour() {
     const hour = date.getHours();
     return hour;
 };
+
+//Since hours only display single digit if < 10 i needed to append a 0 if it is a single digit to be able to compare.
 
 function convertDateAndHourToString() {
     let date = new Date();
@@ -70,22 +69,6 @@ function checkObjectForKeys(data) {
 //             }
 //         } 
 //     }
-// };
-
-// function getIconFromLocalJson(iconData) {
-//     for (let i = 0; i < iconData.length; i++) {
-//         if (iconData[i].id === todaysWeatherNumber) {
-//             todaysWeatherSymbol = iconData[i].image;
-//             console.log("picture ", todaysWeatherSymbol);
-//             return todaysWeatherSymbol;
-//         }
-//     }
-// }
-
-// async function fetchLocalJson() {
-//     let response = await fetch('../data/icon.json');
-//     let iconData = await response.json();
-//     getIconFromLocalJson(iconData);
 // };
 
 function getIconFromLocalJson(iconData) {

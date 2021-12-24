@@ -32,29 +32,34 @@ function convertDateAndHourToString() {
     }
 };
 
-function CompareTimeForResentUpdates(data) {
+function compareTimeForResentUpdates(data) {
     for (let i = 0; i < data.timeSeries.length; i++) {
         if (data.timeSeries[i].validTime.includes(convertDateAndHourToString())) {
+            console.log(i);
             return i;
         }
     }    
 };
 
 function checkObjectForKeys(data) {
-    arrayPosition = CompareTimeForResentUpdates(data);
+    arrayPosition = compareTimeForResentUpdates(data);
     console.log(arrayPosition);
     let currentConditions = {celcius: "Weather is not available right now", weatherNumber: "" }; 
     for (let i = 0; i < data.timeSeries[arrayPosition].parameters.length; i++) {
         if (data.timeSeries[arrayPosition].parameters[i].name === "t"){
             currentConditions.celcius = data.timeSeries[arrayPosition].parameters[i].values[0];
-            console.log(currentConditions.celcius)
-        } 
+            console.log("position ", i);
+            console.log("value ", currentConditions.celcius)
+        }
         if (data.timeSeries[arrayPosition].parameters[i].name === "Wsymb2"){
             currentConditions.weatherNumber = data.timeSeries[arrayPosition].parameters[i].values[0];
+            console.log("position ",i);
+            console.log("value ",currentConditions.weatherNumber);
         }
     }
     return currentConditions;
 };
+
 
 // function getWeatherData(data) {
 //     for (let i = 0; i < data.timeSeries.length; i++) {
@@ -94,6 +99,7 @@ async function fetchApi() {
     checkObjectForKeys(data);
     await fetchLocalJson();
     displayWeather(data);
+    console.log(data)
 };
 
 function displayWeather(data) {

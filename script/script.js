@@ -39,8 +39,10 @@ function compareTimeForResentUpdates(data) {
 };
 
 function checkObjectForKeys(data) {
+
     arrayPosition = compareTimeForResentUpdates(data);
     let currentConditions = {celcius: "Weather is not available right now", weatherNumber: "" }; 
+
     for (let i = 0; i < data.timeSeries[arrayPosition].parameters.length; i++) {
         if (data.timeSeries[arrayPosition].parameters[i].name === "t"){
             currentConditions.celcius = data.timeSeries[arrayPosition].parameters[i].values[0];
@@ -71,7 +73,7 @@ async function fetchLocalJson(data) {
 
 function displayWeather(data, iconData) {
     //Runs the function to get the correct icon from the icon array
-    const weatherRef = getIconFromLocalJson(iconData);
+    const weatherRef = getKeysFromJson(iconData);
     //I moved this here to just clean up the code a bit
     const temperature = checkObjectForKeys(data).celcius;
 
@@ -83,9 +85,8 @@ function displayWeather(data, iconData) {
     <h2 class="todaysWeather__number">${temperature}&#8451</h2>`;
 };
 
-function getIconFromLocalJson(iconData) {
+function getKeysFromJson(iconData) {
     for (let icon of iconData) {
-        console.log("number", todaysWeatherNumber);
         if (icon.id == todaysWeatherNumber) {
             todaysWeatherSymbol = icon.image;
             return todaysWeatherSymbol;

@@ -45,7 +45,7 @@ function compareTimeForRecentUpdates(data) {
 
 function checkObjectForCelcius(data) {
     arrayPosition = compareTimeForRecentUpdates(data);
-    let currentConditions = {celcius: "Weather is not available right now", weatherNumber: "" }; 
+    let currentConditions = {celcius: "Weather is not available right now"}; 
     for (let i = 0; i < data.timeSeries[arrayPosition].parameters.length; i++) {
         if (data.timeSeries[arrayPosition].parameters[i].name === "t"){
             currentConditions.celcius = data.timeSeries[arrayPosition].parameters[i].values[0];
@@ -63,7 +63,7 @@ function checkObjectForWeatherNumber(data) {
         }
     }
     return todaysWeatherNumber;
-}
+};
 
 async function fetchWeatherData() {
     const response = await fetch('https://opendata-download-metfcst.smhi.se/api/category/pmp3g/version/2/geotype/point/lon/12.2523/lat/62.5590/data.json');
@@ -74,7 +74,7 @@ async function fetchWeatherData() {
 function renderPage(data){
     checkObjectForCelcius(data);
     fetchWeatherIconData(data);
-}
+};
 
 async function fetchWeatherIconData(data) {
     let response = await fetch('../data/icon.json');
@@ -96,6 +96,7 @@ function displayWeather(data, iconData) {
 
 function compareIconIdWithWeatherId(iconData, data) {
     let weatherId = checkObjectForWeatherNumber(data);
+    console.log(weatherId)
     for (let icon of iconData) {
         if (icon.id == weatherId) {
             todaysWeatherSymbol = icon.image;

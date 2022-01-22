@@ -25,19 +25,18 @@ html {
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    border-radius: 2rem;
-    box-shadow: 0 0 0.5rem rgb(48, 50, 83);
+    
     font-family: monospace;
     color: rgb(48, 50, 83);
 }
 
 .todaysWeather__text {
-    font-size: 3rem;
+    font-size: 3em;
 }
 
 .todaysWeather__img {
-    width: 17rem;
+    width: 17em;
 }
 .todaysWeather__number {
-    font-size: 4rem;
+    font-size: 4em;
 }

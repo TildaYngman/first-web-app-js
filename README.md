@@ -1,5 +1,5 @@
 # first-web-app-js
-fist-web-app-project-1 at Hyper Island 
+first-web-app-project-1 at Hyper Island 
 
 Breif:
 Work with an API of your choice and display the data you need from the API.
